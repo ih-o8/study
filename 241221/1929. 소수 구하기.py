@@ -5,3 +5,18 @@
 # (100의 제곱근인 10 이하의 소수들에 대해서만 반복)
 
 
+m, n = map(int, input().split())
+arr = [0] * m + [1] * (n - m + 1)
+
+if arr[1] == 1:
+    arr[1] = 0
+
+for i in range(2, int(n ** (1 / 2)) + 1):
+    j = 2
+    while i * j <= n:
+        arr[i*j] = 0
+        j += 1
+
+for k in range(m, n + 1):
+    if arr[k] != 0:
+        print(k)
