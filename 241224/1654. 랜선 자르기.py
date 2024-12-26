@@ -6,16 +6,15 @@ arr = [0] * k
 for i in range(k):
     arr[i] = int(input())
 
-ans = min(arr)
-if k == n:
-    print(ans)
-else:
-    while True:
-        cnt = 0
-        for num in arr:
-            cnt += num // ans
-        if cnt >= n:
-            break
-        ans -= 1
+start, end = 1, max(arr)
+while start <= end:
+    mid = (start + end) // 2
+    cnt = 0
+    for i in arr:
+        cnt += i // mid
+    if cnt >= n:
+        start = mid + 1
+    else:
+        end = mid - 1
 
-    print(ans)
+print(end)  # 랜선의 최대 길이
