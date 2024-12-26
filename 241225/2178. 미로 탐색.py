@@ -1,20 +1,20 @@
-import heapq
-
-def dijkstra(start):
-    global graph, distance
-    q = []
-    heapq.heappush(q, (0, start))
-    distance[start] = 0
-    while q:
-        dist, curr_idx = heapq.heappop(q)
-        if distance[curr_idx] < dist:
-            continue
-        for i in graph[curr_idx]:
-            if distance[i[0]] > dist + i[1]:
-                distance[i[0]] = dist + i[1]
-                heapq.heappush(q, (distance[i[0]], i[0]))
-
+# BFS
+from collections import deque
 n, m = map(int, input().split())
-graph = [list(map(int, list(input()))) for _ in range(n)]
-distance = [[21e8] * m for _ in range(n)]
-dijkstra(0)
+arr = [list(map(int, list(input()))) for _ in range(n)]
+
+direction = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+visited = [[21e8] * m for _ in range(n)]
+queue = deque([(1, 0, 0)])
+
+while queue:
+    cnt, x, y = queue.popleft()
+    if visited[x][y] > cnt:
+        visited[x][y] = cnt
+        for i in range(4):
+            ni = x + direction[i][0]
+            nj = y + direction[i][1]
+            if 0 <= ni < n and 0 <= nj < m and arr[ni][nj]:
+                queue.append((cnt + 1, ni, nj))
+
+print(visited[n - 1][m - 1])
